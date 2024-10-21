@@ -6,8 +6,11 @@ class DashboardController {
     }
 
     stringCalculator(req, res) {
-        // console.log('req.params.stringText', req.body.stringText);
-        return res.status(200).send({"sum": StringCalculatorService.stringCalculator(req.body.stringText)});
+        try {
+            return res.status(200).send(StringCalculatorService.stringCalculator(req.params.str ? req.params.str : null));
+        } catch (e) {
+            return res.status(400).send({"error": e.stack});
+        }
     }
 }
 
